@@ -23,7 +23,7 @@ import java.io.*;
  */
 public class PatternCoder extends Extension implements PackageListener{
     
-    public static final String VERSION = "1.2";
+    public static final String VERSION = "1.0.0";
     public static final String NAME = "PatternCoder";
     public static final String DESCRIPTION = "Design Pattern Extension for BlueJ, developed at Bell College and Glasgow Caledonian University";
     public static final String EXT_URL = "http://www.patterncoder.org";
