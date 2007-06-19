@@ -33,7 +33,7 @@ import java.io.*;
 public class PatternFileValidator {
     
     static final String W3C_XML_SCHEMA ="http://www.w3.org/2001/XMLSchema"; 
-    static final String schemaSource = "lib/extensions/PatternFiles/patternschema.xsd";
+    static final String schemaSource = "lib/extensions/patternfiles/patternschema.xsd";
     static final String schemaSource2 = "patext/patternschema.xsd";
     
     private Schema schema;

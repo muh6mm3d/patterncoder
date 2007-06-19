@@ -5,7 +5,7 @@
     Created on : 22 January 2006, 16:42
     Author     : Michael Nairn
     Description:
-        The bluedpSchema documant is used to validate all pattern source files which are present in the PatternFiles
+        The patternschema documant is used to validate all pattern source files which are present in the PatternFiles
         directory, in the extensions directory.
         All pattern files must conform to this schema, or they will not be loaded into the design patterns extension.
 -->

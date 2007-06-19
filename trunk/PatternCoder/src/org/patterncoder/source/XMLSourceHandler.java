@@ -42,8 +42,8 @@ public class XMLSourceHandler implements PatternSourceManager {
     private File extensionDir;//Location of PatternFiles folder
     
     private final String EXTENSION_DIR_NAME = "extensions";
-    private final String PATTERN_FILES_DIR_NAME = "PatternFiles";
-    private final String CLASS_TEMPLATES = "Templates";
+    private final String PATTERN_FILES_DIR_NAME = "patternfiles";
+    private final String CLASS_TEMPLATES = "templates";
     private final String IMG_DIR = "images";
     
     private final String PAT_FILE_EXTENSION = ".xml";
@@ -92,7 +92,7 @@ public class XMLSourceHandler implements PatternSourceManager {
     public ArrayList<String> getSourceFiles() throws FileNotFoundException, Exception{
         validator = new PatternFileValidator();
         ArrayList<String> sources = new ArrayList<String>();
-        String extDir = getExtensionDir()+"//";
+        String extDir = getExtensionDir()+"/";
         String[] temp = getExtensionDir().list();
         for(int i=0;i<temp.length;i++){        
             if(temp[i].endsWith(PAT_FILE_EXTENSION)){
@@ -162,18 +162,18 @@ public class XMLSourceHandler implements PatternSourceManager {
      * @throws java.lang.Exception throws exception if PatternFile directory does not exist.
      */
     private File findExtensionDir()throws FileNotFoundException{
-        File f1 = new File(BlueJHandler.getInstance().getBlueJDir(), EXTENSION_DIR_NAME+"\\"+PATTERN_FILES_DIR_NAME);
+        File f1 = new File(BlueJHandler.getInstance().getBlueJDir(), EXTENSION_DIR_NAME+"/"+PATTERN_FILES_DIR_NAME);
         if(f1.exists()){
             return f1;
         } 
         else{
-            f1 = new File(BlueJHandler.getInstance().getUserConfigDir(), EXTENSION_DIR_NAME+"\\"+PATTERN_FILES_DIR_NAME);
+            f1 = new File(BlueJHandler.getInstance().getUserConfigDir(), EXTENSION_DIR_NAME+"/"+PATTERN_FILES_DIR_NAME);
             if(f1.exists()){
                 return f1;
             }
             else{
                 try{
-                    f1 = new File(BlueJHandler.getInstance().getProjectDir(), EXTENSION_DIR_NAME+"\\"+PATTERN_FILES_DIR_NAME);
+                    f1 = new File(BlueJHandler.getInstance().getProjectDir(), EXTENSION_DIR_NAME+"/"+PATTERN_FILES_DIR_NAME);
                 }
                 catch(ProjectNotOpenException exc){System.out.println(exc + "Project not open");}
                     
