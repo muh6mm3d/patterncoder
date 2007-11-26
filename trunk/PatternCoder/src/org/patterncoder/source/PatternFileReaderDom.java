@@ -36,6 +36,7 @@ import org.patterncoder.pattern.PatternClass;
 import org.patterncoder.pattern.PatternModel;
 import org.patterncoder.PatternCoderException;
 
+
 /**
  * Reads in xml files, using the DOM xml parser.
  * Implements the PatternFileReader interface providing methods for retrieving pattern related data

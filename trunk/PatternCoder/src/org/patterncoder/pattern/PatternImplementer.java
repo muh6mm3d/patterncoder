@@ -109,7 +109,7 @@ public class PatternImplementer {
      */
     private void createSourceFile(File destination,File sourceTemplate, String className, List<String> deps) throws IOException, ProjectNotOpenException, PackageNotFoundException{
         
-        Pattern classNamePattern = Pattern.compile(CLASS_NAME_STRING);
+        Pattern classNamePattern = Pattern.compile(CLASS_NAME_STRING);     // this is java.util.regex.Pattern - nothing to do with design patterns!
         Pattern packageNamePattern = Pattern.compile(PACKAGE_NAME);
         String output = "";
         Matcher matcher;

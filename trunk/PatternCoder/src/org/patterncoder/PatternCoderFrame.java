@@ -75,7 +75,7 @@ public class PatternCoderFrame extends javax.swing.JFrame implements org.pattern
         wModel = new WizardModel();
 
         BlueJHandler.getInstance().setBlueJ(bluej);
-        model = new PatternModel();//throws BlueDPException if there was a problem creating the parser
+        model = new PatternModel();//throws PatternCoderException if there was a problem creating the parser
         model.populateModel();//throws FileNotFoundException if PatternFiles were not found.
         setStaticPanels();
         this.model.addObserver(this);
@@ -401,7 +401,7 @@ public class PatternCoderFrame extends javax.swing.JFrame implements org.pattern
         try{
             reader.parseFile(model.getCurrentSourceFile());
         }catch(IOException ioe){
-            ErrorHandler.printErrorMsg("The source file for this pattern can not be found");
+            ErrorHandler.printErrorMsg("The source file for this pattern can not be found" + model.getCurrentSourceFile() + ioe.toString());
             System.out.println(ioe.getMessage());//
             exitExtension();
         }catch(SAXException saxe){
