@@ -32,8 +32,8 @@ public class ErrorHandler {
     
     private static final boolean DEBUG = System.getProperty("debug") != null ? true : false;
     
-    private static final String ERROR_TITLE = "Patterns Extension Error";
-    private static final String WARNING_TITLE = "Patterns Extension Warning";
+    private static final String ERROR_TITLE = "PatternCoder Error";
+    private static final String WARNING_TITLE = "PatternCoder Warning";
     
     /**
      * Logs the message sent to it. Only does so if the system property "debug", is set to true.

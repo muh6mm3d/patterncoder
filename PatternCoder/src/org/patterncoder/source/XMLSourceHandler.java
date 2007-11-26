@@ -22,9 +22,11 @@ package org.patterncoder.source;
 import java.io.*;
 import java.util.ArrayList;
 import bluej.extensions.ProjectNotOpenException;
+import java.net.URLEncoder;
 import org.xml.sax.SAXException;
 import org.patterncoder.BlueJHandler;
 import org.patterncoder.ErrorHandler;
+
 
 /**
  * Deals with the directories required by the extension.
@@ -92,12 +94,13 @@ public class XMLSourceHandler implements PatternSourceManager {
     public ArrayList<String> getSourceFiles() throws FileNotFoundException, Exception{
         validator = new PatternFileValidator();
         ArrayList<String> sources = new ArrayList<String>();
-        String extDir = getExtensionDir()+"/";
+        //String extDir = getExtensionDir()+"/";
+        String extDir = getExtensionDir()+ System.getProperties().getProperty("file.separator"); 
         String[] temp = getExtensionDir().list();
         for(int i=0;i<temp.length;i++){        
             if(temp[i].endsWith(PAT_FILE_EXTENSION)){
                 try{
-                    validator.validateFile(extDir+temp[i]);
+                    validator.validateFile(extDir+temp[i]);   
                     sources.add(extDir+temp[i]);
                 }catch(SAXException saxe){
                     ErrorHandler.logErrorMsg("Could not validate file "+ extDir+temp[i]+saxe.getMessage());
@@ -186,5 +189,6 @@ public class XMLSourceHandler implements PatternSourceManager {
             }
         }  
      }//End of findExtensionDir   
+    
     
 }

@@ -33,6 +33,8 @@ import org.patterncoder.source.XMLSourceHandler;
 import org.patterncoder.PatternCoderException;
 import org.patterncoder.ErrorHandler;
 
+
+
 /**
  * The PatternModel class is used to represent the data that is being used to display information to the user.
  *All data used in the Graphical user interface is stored within this model structure, allowing for a clear seperation
@@ -96,7 +98,7 @@ public class PatternModel extends Observable{
         File tempFile;
         int length = files.size();
         for(int i=0;i<length;i++){
-            tempFile = new File(files.get(i).toString());
+            tempFile = new File(files.get(i).toString());   // testing bug fix for issue 5
             try{
                 reader.parseFile(tempFile);
                 if(reader.getPatternName()!=null){
@@ -236,4 +238,6 @@ public class PatternModel extends Observable{
         return curPattern;
     }
     
+  
+     
 }//End of PatternModel

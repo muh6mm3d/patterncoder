@@ -35,9 +35,9 @@ import java.io.*;
  */
 public class PatternCoder extends Extension implements PackageListener{
     
-    public static final String VERSION = "0.5.0";
+    public static final String VERSION = "0.5.1.002";
     public static final String NAME = "PatternCoder";
-    public static final String DESCRIPTION = "Design Pattern Extension for BlueJ, developed at Bell College and Glasgow Caledonian University";
+    public static final String DESCRIPTION = "Design patterns extension for BlueJ, developed at Glasgow Caledonian University and The University of the West of Scotland";
     public static final String EXT_URL = "http://www.patterncoder.org";
     
     private PatternCoderFrame patFrame;
@@ -50,7 +50,7 @@ public class PatternCoder extends Extension implements PackageListener{
      */
     
     /**
-     * tartup is called once when the extension is first initialised
+     * startup is called once when the extension is first initialised
      * @param bluej The BlueJ proxy object.
      */
     public void startup(BlueJ bluej){  
@@ -115,7 +115,7 @@ public class PatternCoder extends Extension implements PackageListener{
     }
     
     /**
-     * Returns a set description of the Pattern Extension.
+     * Returns a set description of the extension.
      * @return A description of the extension.
      */
     public String getDescription() {
@@ -123,7 +123,7 @@ public class PatternCoder extends Extension implements PackageListener{
     }
 
     /**
-     * Returns a URL address associated with this Extension
+     * Returns a URL address associated with this extension
      * @return A URL address
      */
     public URL getURL() {
@@ -178,7 +178,7 @@ public class PatternCoder extends Extension implements PackageListener{
             /**
              * Creates a new PatternAction object with specified properties.
              *
-             * @param menuName The menu option name that appears on the Tools menu e.g Use design Pattern
+             * @param menuName The menu option name that appears on the Tools menu 
              * @param msg msgHeader
              */
             public PatternAction(String menuName, String msg) {
@@ -196,15 +196,15 @@ public class PatternCoder extends Extension implements PackageListener{
                 try{
                     patFrame = new PatternCoderFrame(bluej);
                     patFrame.setVisible(true);
-                }catch(PatternCoderException bdpe){
+                }catch(PatternCoderException pce){
                     ErrorHandler.printErrorMsg("A problem occured whilst validating one or more XML files.\nPlease make sure that the schema document is present in the correct directory.");
-                    ErrorHandler.logErrorMsg("BlueDP Error:\n"+bdpe.getMessage());
+                    ErrorHandler.logErrorMsg("PatternCoder Error:\n"+pce.getMessage());
                 }catch(FileNotFoundException fnfe){
                     ErrorHandler.printErrorMsg("Unable to open pattern source directory.\n\n" +
-                    "Please ensure Pattern Files folder is located in the extensions directory.");
+                    "Please ensure PatternFiles folder is located in the extensions directory.");
                     ErrorHandler.logErrorMsg(fnfe.getMessage());
                 }catch(Exception e){
-                    ErrorHandler.printErrorMsg("A problem has occured and the Design Patterns extension could not open correctly\nPlease ensure that all pattern source files are in the correct directory and adhere to the correct schema document.\nPlease also ensure that the schema document itself is present in the correct directory.");
+                    ErrorHandler.printErrorMsg("A problem has occured and the PatternCoder extension could not open correctly\nPlease ensure that all pattern source files are in the correct directory and adhere to the correct schema document.\nPlease also ensure that the schema document itself is present in the correct directory.");
                     ErrorHandler.logErrorMsg(e.getMessage());
                 }
             }          
