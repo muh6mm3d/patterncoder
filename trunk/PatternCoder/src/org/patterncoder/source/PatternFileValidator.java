@@ -19,15 +19,18 @@
 
 package org.patterncoder.source;
 
-import javax.xml.validation.*;
-import java.net.URLEncoder;
-import javax.xml.XMLConstants;
-import javax.xml.transform.stream.StreamSource;
-import org.xml.sax.SAXException;
-import java.io.*;
-
-import java.text.StringCharacterIterator;
+import java.io.File;
+import java.io.IOException;
 import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import org.patterncoder.BlueJHandler;
+import org.xml.sax.SAXException;
+
+
 
 /**
  * The PatternFileValidator class is used to validate each of the xml source files against a xmlSchema.
@@ -37,8 +40,12 @@ import java.text.CharacterIterator;
 public class PatternFileValidator {
     
     static final String W3C_XML_SCHEMA ="http://www.w3.org/2001/XMLSchema";
-    static final String schemaSource = "lib/extensions/patternfiles/patternschema.xsd";
-    static final String schemaSource2 = "patext/patternschema.xsd";
+
+    /** system independent portion of the schema file path **/
+    static final String EXT_PATH = "extensions/PatternFiles";
+    
+    /** schema filename **/
+    static final String SCHEMA_FILENAME = "patternschema.xsd";
     
     private Schema schema;
     private Validator validator;
@@ -48,35 +55,8 @@ public class PatternFileValidator {
      * @throws org.xml.sax.SAXException A SAXException is thrown if the schema file cannot be found, or there is aproblem during comilation of the schema.
      */
     public PatternFileValidator() throws SAXException {
-        
-        //  String sConfigFile = "patext/bluedp.properties";
-        //java.net.URL in = this.getClass().getClassLoader().getResource(sConfigFile);
-        //   System.out.println("in = "+in);
-        //   System.out.println("File = "+in.getFile());
-        //   System.out.println("Path = "+in.getPath());
-        
-        
-        //    if (in == null) {
-        //File not found! (Manage the problem)
-        //       System.out.println("file not found");
-        // }else{
-        //   System.out.println("file found");
-        // }
-        // java.util.Properties props = new java.util.Properties();
-        
-        // try{
-        // props.load(in);//throws IOException
-        // }catch(IOException ioe){ioe.printStackTrace();}
-        
-//        System.out.println(props.getProperty("name"));//
-        
-        // InputStream in = PatternsExtension.class.getClassLoader().getResourceAsStream(schemaSource2);
-        
-        //    java.net.URL mySource = this.getClass().getClassLoader().getResource(schemaSource2);
-        
-        //   String schemaFile = mySource.getFile();
-        
-        schema = compileSchema(schemaSource);
+         
+        schema = compileSchema(getPatternSchemaFile());
         validator = schema.newValidator();
         validator.setErrorHandler(new ValidatorErrorHandler());
     }
@@ -88,20 +68,42 @@ public class PatternFileValidator {
      * @return A compiled schema, which can be used in validating.
      */
     public static Schema compileSchema(String schema) throws SAXException{
+        return compileSchema(new File(schema));
+    }//compileSchema
+    
+    /**
+     * Compiles the schema file specified.
+     * @param schemaFile The schema file to be comiled.
+     * @throws org.xml.sax.SAXException Throws a SAXException if compilation of the schema fails.
+     * @return A compiled schema, which can be used in validating.
+     */
+    public static Schema compileSchema(File schemaFile) throws SAXException{
         SchemaFactory sf = SchemaFactory.newInstance(W3C_XML_SCHEMA);
-        return sf.newSchema(new File(schema));
+        return sf.newSchema(schemaFile);
     }//compileSchema
     
     
     /**
      * Validates a source file against the compiled schema.Exceptions are thrown if the validation is Unsuccessful.
-     * @param sourcefile The source file to be validated.
+     * @param sourceFileName The source file to be validated.
      * @throws org.xml.sax.SAXException Thrown if the source file cannot be validated against the schema.
      * @throws java.io.IOException Thrown if the source file cannot be read or found for any reason.
      */
-    public void validateFile(String sourcefile) throws SAXException, IOException{
-        sourcefile = replaceSpaces(sourcefile);   // avoids MalformedURLException if file path has spaces
-        validator.validate(new StreamSource(sourcefile));
+    public void validateFile(String sourceFileName) throws SAXException, IOException{
+        // sourcefile = replaceSpaces(sourcefileName);   // avoids MalformedURLException if file path has spaces
+        // validator.validate(new StreamSource(sourcefile));
+        File sourceFile = new File(sourceFileName);
+        validateFile(sourceFile);
+    }
+    
+    /**
+     * Validates a source file against the compiled schema.Exceptions are thrown if the validation is Unsuccessful.
+     * @param sourceFile The source file to be validated.
+     * @throws org.xml.sax.SAXException Thrown if the source file cannot be validated against the schema.
+     * @throws java.io.IOException Thrown if the source file cannot be read or found for any reason.
+     */
+    public void validateFile(File sourceFile) throws SAXException, IOException{        
+        validator.validate(new StreamSource(sourceFile));
     }
     
     
@@ -166,6 +168,21 @@ public class PatternFileValidator {
             character = iterator.next();
         }
         return result.toString();
+    }
+    
+    
+    /**
+     * Dynamically create the path for the schema file using system properties.
+     * @author Kafai Cheng
+     * @return the schema file
+     */
+    private File getPatternSchemaFile(){
+        File programClassDirectory = BlueJHandler.getInstance().getBlueJDir();
+        //String programClassPath = System.getProperty("java.class.path").split(System.getProperty("path.separator"))[0];
+        // File programClassDirectory = new File(programClassPath).getParentFile();
+        File extensionDirectory = new File(programClassDirectory, EXT_PATH);
+        File schemaFile = new File(extensionDirectory, SCHEMA_FILENAME);
+        return schemaFile;
     }
     
 }
