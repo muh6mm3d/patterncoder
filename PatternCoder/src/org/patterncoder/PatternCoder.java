@@ -35,7 +35,7 @@ import java.io.*;
  */
 public class PatternCoder extends Extension implements PackageListener{
     
-    public static final String VERSION = "0.5.1.002";
+    public static final String VERSION = "0.5.3.004";
     public static final String NAME = "PatternCoder";
     public static final String DESCRIPTION = "Design patterns extension for BlueJ, developed at Glasgow Caledonian University and The University of the West of Scotland";
     public static final String EXT_URL = "http://www.patterncoder.org";
@@ -197,14 +197,14 @@ public class PatternCoder extends Extension implements PackageListener{
                     patFrame = new PatternCoderFrame(bluej);
                     patFrame.setVisible(true);
                 }catch(PatternCoderException pce){
-                    ErrorHandler.printErrorMsg("A problem occured whilst validating one or more XML files.\nPlease make sure that the schema document is present in the correct directory.");
+                    ErrorHandler.printErrorMsg("A problem occured whilst validating one or more XML files.\nPlease make sure that the schema document is present in the correct directory.", pce);
                     ErrorHandler.logErrorMsg("PatternCoder Error:\n"+pce.getMessage());
                 }catch(FileNotFoundException fnfe){
                     ErrorHandler.printErrorMsg("Unable to open pattern source directory.\n\n" +
-                    "Please ensure PatternFiles folder is located in the extensions directory.");
+                    "Please ensure PatternFiles folder is located in the extensions directory.", fnfe);
                     ErrorHandler.logErrorMsg(fnfe.getMessage());
                 }catch(Exception e){
-                    ErrorHandler.printErrorMsg("A problem has occured and the PatternCoder extension could not open correctly\nPlease ensure that all pattern source files are in the correct directory and adhere to the correct schema document.\nPlease also ensure that the schema document itself is present in the correct directory.");
+                    ErrorHandler.printErrorMsg("A problem has occured and the PatternCoder extension could not open correctly\nPlease ensure that all pattern source files are in the correct directory and adhere to the correct schema document.\nPlease also ensure that the schema document itself is present in the correct directory.", e);
                     ErrorHandler.logErrorMsg(e.getMessage());
                 }
             }          
