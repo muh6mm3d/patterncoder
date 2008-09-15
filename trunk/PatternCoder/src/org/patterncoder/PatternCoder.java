@@ -37,7 +37,7 @@ public class PatternCoder extends Extension implements PackageListener{
     
     public static final String VERSION = "0.5.3.004";
     public static final String NAME = "PatternCoder";
-    public static final String DESCRIPTION = "Design patterns extension for BlueJ, developed at Glasgow Caledonian University and The University of the West of Scotland";
+    public static final String DESCRIPTION = "Design patterns extension for BlueJ, developed at Glasgow Caledonian University";
     public static final String EXT_URL = "http://www.patterncoder.org";
     
     private PatternCoderFrame patFrame;
